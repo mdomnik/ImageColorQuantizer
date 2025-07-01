@@ -20,8 +20,23 @@ class Program
         var pixels = ImageLoader.ExtractPixels(bitmap);
         var rgbTuples = ColorUtils.ConvertToRGBTuples(pixels);
 
+        int k = 4;
+        var palette = QuantizationService.KmeansQuantizer(rgbTuples, k);
+        var quantizedImage = QuantizationService.RecolorImage(bitmap, palette);
+
         Console.WriteLine($"loaded {pixels.Count} pixels from image.");
         Console.WriteLine($"Image Dimensions: {bitmap.Width}x{bitmap.Height}");
         Console.WriteLine($"Sample: {rgbTuples[0]}");
+
+        Console.WriteLine($"Generated {palette.Count} palette colors:");
+        foreach (var color in palette)
+        {
+            Console.WriteLine($" - RGB({color.R}, {color.G}, {color.B})");
+        }
+        Directory.CreateDirectory("ImageOutput");
+        string outputPath = Path.Combine("ImageOutput", "quantized.png");
+        quantizedImage.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
+
+        Console.WriteLine($"Saved quantized image to: {outputPath}");
     }
 }
