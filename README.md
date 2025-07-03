@@ -21,7 +21,7 @@ A fast and simple command-line tool written in C# to quantize an image into a re
 ## 🚀 Usage
 
 ```bash
-dotnet run -- Images/input.png 4
+dotnet run -- Images/<FileName> (optional: <NumberOfColors>)
 ```
 ---
 ## 📦 Installation
@@ -33,7 +33,14 @@ dotnet run -- Images/input.png 4
    ```bash
    cd ImageColorQuantizer
    ```
-3. 
+3. Restore dependencies:
+   ```bash
+   dotnet restore .\Image_ColorQuantizer.sln
+   ```
+4. Run the tool:
+   ```bash
+   dotnet run -- Images/input.png 4
+   ```
 ---
 ## 🖼️ Showcase
 Below is an example of the tool applied to a colorful image, showing different quantization levels side by side:
