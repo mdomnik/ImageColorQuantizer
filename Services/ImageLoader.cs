@@ -3,9 +3,10 @@ using System.Runtime.Versioning;
 
 namespace ImageColorQuantizer.Services
 {
+    [SupportedOSPlatform("windows")]
     internal class ImageLoader
     {
-        [SupportedOSPlatform("windows")]
+        // Extracts non-transparent pixels from a bitmap image
         public static List<Color> ExtractPixels(Bitmap bitmap)
         {
             var pixels = new List<Color>();
