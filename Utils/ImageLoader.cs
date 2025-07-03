@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.Versioning;
 
-namespace ImageColorQuantizer.Services
+namespace ImageColorQuantizer.Utils
 {
     internal class ImageLoader
     {
@@ -14,7 +14,10 @@ namespace ImageColorQuantizer.Services
             {
                 for (int x = 0; x < bitmap.Width; x++)
                 {
-                    pixels.Add(bitmap.GetPixel(x, y));
+                    var color = bitmap.GetPixel(x, y);
+
+                    if (color.A > 0)
+                        pixels.Add(color);
                 }
             }
             return pixels;

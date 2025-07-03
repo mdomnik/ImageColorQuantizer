@@ -20,8 +20,14 @@ class Program
         var pixels = ImageLoader.ExtractPixels(bitmap);
         var rgbTuples = ColorUtils.ConvertToRGBTuples(pixels);
 
-        int k = 4;
+        rgbTuples = rgbTuples.Distinct().ToList(); // Ensure distinct colors
+
+        int k = 1;
         var palette = QuantizationService.KmeansQuantizer(rgbTuples, k);
+
+        palette = palette
+            .OrderBy(c => c.R + c.G + c.B) // Brightness sort
+            .ToList();
         var quantizedImage = QuantizationService.RecolorImage(bitmap, palette);
 
         Console.WriteLine($"loaded {pixels.Count} pixels from image.");

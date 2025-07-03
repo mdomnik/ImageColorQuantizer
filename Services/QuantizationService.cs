@@ -16,8 +16,12 @@ namespace ImageColorQuantizer.Services
             }
 
             var random = new Random();
-            var centroids = pixels.OrderBy(x => random.Next()).Take(k).ToList();
-
+            var centroids = pixels
+                            .GroupBy(p => p)
+                            .OrderByDescending(g => g.Count()) // most frequent first
+                            .Take(k)
+                            .Select(g => g.Key)
+                            .ToList();
 
             for (int iter = 0; iter < maxIterations; iter++)
             {
@@ -73,6 +77,12 @@ namespace ImageColorQuantizer.Services
                 for (int x = 0; x < original.Width; x++)
                 {
                     var pixel = original.GetPixel(x, y);
+
+                    if (pixel.A < 255)
+                    {
+                        newImage.SetPixel(x, y, Color.FromArgb(0, 0, 0, 0));
+                        continue; // Skip transparent pixels
+                    }
                     var key = (pixel.R, pixel.G, pixel.B);
 
                     if (!cache.TryGetValue(key, out var mapped))
@@ -89,15 +99,15 @@ namespace ImageColorQuantizer.Services
 
         private static (int R, int G, int B) FindClosestPaletteColor((int R, int G, int B) pixel, List<(int R, int G, int B)> palette)
         {
-            double mindistance = double.MaxValue;
+            double minDistance = double.MaxValue;
             (int R, int G, int B) closest = palette[0];
 
             foreach (var c in palette)
             {
                 double distance = Math.Pow(pixel.R - c.R, 2) + Math.Pow(pixel.G - c.G, 2) + Math.Pow(pixel.B - c.B, 2);
-                if (distance < mindistance)
+                if (distance < minDistance)
                 {
-                    mindistance = distance;
+                    minDistance = distance;
                     closest = c;
                 }
             }
