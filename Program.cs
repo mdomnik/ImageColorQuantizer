@@ -22,7 +22,7 @@ class Program
 
         rgbTuples = rgbTuples.Distinct().ToList(); // Ensure distinct colors
 
-        int k = 1;
+        int k = 64;
         var palette = QuantizationService.KmeansQuantizer(rgbTuples, k);
 
         palette = palette

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.Versioning;
 
-namespace ImageColorQuantizer.Utils
+namespace ImageColorQuantizer.Services
 {
     internal class ImageLoader
     {
