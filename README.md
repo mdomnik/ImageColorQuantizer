@@ -1,4 +1,4 @@
-﻿# 🎨 Image Color Quantizer
+﻿# 🎨 Image Color Quantizer (Windows 6.1 or Later)
 
 A fast and simple command-line tool written in C# to quantize an image into a reduced color palette using K-Means clustering.
 
