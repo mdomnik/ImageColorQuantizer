@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="ImageOutput\" />
-    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>
