@@ -10,11 +10,12 @@ class Program
     {
         if (args.Length == 0 || !File.Exists(args[0]))
         {
-            Console.WriteLine("Usage: ImageColorQuantizer <image_path>");
+            Console.WriteLine("Usage: ImageColorQuantizer <image_path> [color count]");
             return;
         }
 
         string path = args[0];
+        int    colorCount = args.Length > 1 && int.TryParse(args[1], out int count) ? count : 4;
 
         Bitmap bitmap = new Bitmap(path);
         var pixels = ImageLoader.ExtractPixels(bitmap);
@@ -22,23 +23,12 @@ class Program
 
         rgbTuples = rgbTuples.Distinct().ToList(); // Ensure distinct colors
 
-        int k = 64;
-        var palette = QuantizationService.KmeansQuantizer(rgbTuples, k);
-
+        var palette = QuantizationService.KmeansQuantizer(rgbTuples, colorCount);
         palette = palette
             .OrderBy(c => c.R + c.G + c.B) // Brightness sort
             .ToList();
         var quantizedImage = QuantizationService.RecolorImage(bitmap, palette);
 
-        Console.WriteLine($"loaded {pixels.Count} pixels from image.");
-        Console.WriteLine($"Image Dimensions: {bitmap.Width}x{bitmap.Height}");
-        Console.WriteLine($"Sample: {rgbTuples[0]}");
-
-        Console.WriteLine($"Generated {palette.Count} palette colors:");
-        foreach (var color in palette)
-        {
-            Console.WriteLine($" - RGB({color.R}, {color.G}, {color.B})");
-        }
         Directory.CreateDirectory("ImageOutput");
         string outputPath = Path.Combine("ImageOutput", "quantized.png");
         quantizedImage.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
