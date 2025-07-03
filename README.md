@@ -2,7 +2,7 @@
 
 A fast and simple command-line tool written in C# to quantize an image into a reduced color palette using K-Means clustering.
 
-![Cow Banner](./ReadMeImages/CowBanner.png)  
+![Cow Banner](./ReadMe_Images/CowBanner.png)  
 <sub>📷 Photo by [Ave Calvar Martinez](https://www.pexels.com/photo/selective-focus-photo-of-a-brown-cow-3656870/)</sub>
 
 ---
@@ -45,5 +45,5 @@ dotnet run -- Images/<FileName> (optional: <NumberOfColors>)
 ## 🖼️ Showcase
 Below is an example of the tool applied to a colorful image, showing different quantization levels side by side:
 
-![Bird Banner](./ReadMeImages/BirdShowcase.png)
+![Bird Banner](./ReadMe_Images/BirdShowcase.png)
 <sub>📷 Photo by Alex P: https://www.pexels.com/photo/blue-and-yellow-macaw-perched-on-twig-2078772/</sub>

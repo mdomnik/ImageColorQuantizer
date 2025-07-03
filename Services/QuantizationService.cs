@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ImageColorQuantizer.Services
 {
+    [SupportedOSPlatform("windows")]
     internal class QuantizationService
     {
         //quantizes an image by forming a palette of colors and then matching each pixel to the closest relative palette color
